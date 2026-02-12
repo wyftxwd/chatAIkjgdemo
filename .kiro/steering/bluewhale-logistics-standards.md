@@ -1,4 +1,4 @@
-# 蓝鰼物流平台设计与开发标准
+# 平台设计与开发标准
 
 ## 全程交流使用中文
 
@@ -42,21 +42,21 @@
 - 性能优化：图片懒加载、代码分割、CDN 优化
 
 ## 技术栈
-- 前端：Vue 3 + TypeScript + Vite + Ant Design Vue 4.x
-- 状态管理：Pinia
-- 路由：Vue Router 4
-- 动画：@vueuse/motion 或原生 CSS transitions
-- 图表：ECharts 或 vue-echarts
-- 3D可视化：vue-globe.gl 或 Three.js
+- 前端：React 18 + TypeScript + Vite + Ant Design 5.x
+- 状态管理：Zustand
+- 路由：React Router 6
+- 动画：Framer Motion 或原生 CSS transitions
+- 图表：ECharts 或 recharts
+- 3D可视化：react-globe.gl 或 Three.js (React Three Fiber)
 
-## Vue 3 开发规范
-- 使用 Composition API + `<script setup>` 语法
-- 组件使用 `.vue` 单文件组件格式
-- 样式使用 `<style scoped>` 或 CSS Modules
-- Props 和 Emits 必须使用 TypeScript 类型定义
-- 响应式数据使用 `ref` 和 `reactive`
-- 组件文件名使用 PascalCase：`HomePage.vue`
-- Props 使用 camelCase，Events 使用 kebab-case
+## React 开发规范
+- 使用函数组件 + Hooks
+- 组件使用 `.tsx` 文件格式
+- 样式使用 CSS Modules 或 styled-components
+- Props 必须使用 TypeScript `interface` 或 `type` 定义
+- 状态管理使用 `useState` 和 `useReducer`
+- 组件文件名使用 PascalCase：`HomePage.tsx`
+- Props 使用 camelCase，事件回调使用 `on` 前缀（如 `onClick`、`onChange`）
 - CSS 类名使用 kebab-case 或 BEM
 
 ## 蓝鰼物流平台品牌规范
