@@ -26,11 +26,44 @@ body{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   padding:32px;
 }
+.card-wrapper{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+}
 .card{
   width:860px;background:var(--card);border-radius:16px;
   border:1px solid var(--border-light);overflow:hidden;
   box-shadow:var(--shadow);
   padding-bottom:24px;
+  transition:width 0.35s ease;
+}
+.card--mobile{
+  width:390px;
+}
+
+/* 视图切换按钮 */
+.view-toggle-btn{
+  position:sticky;
+  top:32px;
+  display:flex;align-items:center;gap:6px;
+  padding:8px 16px;height:40px;border-radius:8px;
+  background:var(--card);
+  color:var(--text-secondary);
+  font-size:12px;font-weight:600;
+  font-family:'Inter',sans-serif;letter-spacing:0.3px;
+  border:1px solid var(--border-light);
+  cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  transition:all 0.25s ease;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.view-toggle-btn:hover{
+  color:var(--primary);
+  border-color:rgba(30,136,229,0.2);
+  box-shadow:0 2px 12px rgba(30,136,229,0.1);
 }
 
 /* ===== 船舶英雄区 - 雷达扫描蒙版效果 ===== */
@@ -461,3 +494,252 @@ body{
 .subscribe-btn--active:hover .subscribe-btn__text--subscribed{display:none;}
 .subscribe-btn--active:hover .subscribe-btn__icon--cancel,
 .subscribe-btn--active:hover .subscribe-btn__text--cancel{display:inline;}
+
+/* ===== 移动端适配（通过 .card--mobile 触发） ===== */
+
+/* 英雄区：降低高度，面板纵向堆叠 */
+.card--mobile .ship-hero{
+  min-height:280px;
+  flex-direction:column;
+  align-items:stretch;
+}
+.card--mobile .glass-panel{
+  margin:8px 12px;
+  padding:12px 14px;
+  min-width:unset;
+  transition:padding 0.3s ease;
+}
+.card--mobile .glass-panel:has(.panel-fields-wrap--collapsed){
+  padding-bottom:0;
+}
+.card--mobile .panel-left{
+  margin-left:12px;
+  align-self:stretch;
+}
+.card--mobile .panel-right{
+  margin-right:12px;
+  margin-left:12px;
+  align-self:stretch;
+}
+.card--mobile .panel-title{
+  font-size:10px;
+  margin-bottom:10px;
+  padding-bottom:6px;
+}
+.card--mobile .field-value{font-size:12px;}
+.card--mobile .field-value.mono{font-size:11px;}
+.card--mobile .field-label{font-size:8px;}
+.card--mobile .panel-fields{gap:6px;}
+
+/* 面板可折叠 - 过渡动画 */
+.panel-fields-wrap{
+  max-height:300px;
+  overflow:hidden;
+  transition:max-height 0.3s ease, opacity 0.25s ease;
+  opacity:1;
+}
+.panel-fields-wrap--collapsed{
+  max-height:0;
+  opacity:0;
+}
+.panel-collapse-toggle{
+  display:none;
+  align-items:center;gap:4px;
+  background:none;border:none;cursor:pointer;
+  color:rgba(180,210,240,0.6);font-size:10px;font-weight:500;
+  font-family:'Inter',sans-serif;
+  padding:0;margin-left:auto;
+  transition:color 0.2s;
+}
+.panel-collapse-toggle:hover{color:rgba(180,210,240,0.9);}
+.panel-collapse-toggle svg{transition:transform 0.25s ease;}
+.panel-collapse-toggle--collapsed svg{transform:rotate(-90deg);}
+.card--mobile .panel-collapse-toggle{display:inline-flex;}
+.panel-fields--collapsed{
+  display:none;
+}
+
+/* 状态条：紧凑 */
+.card--mobile .ship-status-bar{
+  gap:12px;
+  padding:8px 12px;
+}
+.card--mobile .ship-hero{
+  padding-bottom:44px;
+}
+.card--mobile .ship-badge{
+  font-size:11px;
+  padding:4px 12px;
+}
+.card--mobile .update-time{font-size:10px;}
+
+/* 港口情报：紧凑 */
+.card--mobile .port-section{padding:12px 16px;}
+.card--mobile .port-header{
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:10px;
+  padding-bottom:10px;
+}
+.card--mobile .port-header-name{font-size:22px;letter-spacing:1px;}
+.card--mobile .port-header-en{font-size:11px;letter-spacing:1px;}
+.card--mobile .port-header-prefix{font-size:12px;padding-right:8px;}
+.card--mobile .port-header-divider{height:22px;margin-right:10px;}
+.card--mobile .alert-box{font-size:11px;padding:6px 10px;}
+
+/* 统计卡片：两列 + 紧凑 */
+.card--mobile .port-stats-row{
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+.card--mobile .stat-card{padding:8px 10px;}
+.card--mobile .stat-label{font-size:11px;}
+.card--mobile .stat-value{font-size:18px;}
+
+/* 预测区：紧凑 */
+.card--mobile .prediction-block{
+  margin:12px 16px 0;
+  padding:16px 14px 12px;
+}
+.card--mobile .prediction-main-title{font-size:14px;}
+
+/* 预测卡片：纵向堆叠 */
+.card--mobile .prediction-cards{
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-bottom:12px;
+}
+.card--mobile .pred-card{
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 14px;
+  gap:8px;
+}
+.card--mobile .pred-label{
+  min-width:60px;
+  text-align:left;
+}
+.card--mobile .pred-date{font-size:15px;}
+.card--mobile .pred-time{font-size:11px;}
+
+/* 开港/截港：纵向 */
+.card--mobile .prediction-footer{
+  flex-direction:column;
+  gap:8px;
+  padding:10px 12px;
+}
+
+/* 底部栏：纵向 */
+.card--mobile .prediction-bottom-bar{
+  flex-direction:column;
+  gap:10px;
+  align-items:stretch;
+}
+.card--mobile .prediction-disclaimer{font-size:10px;}
+.card--mobile .subscribe-btn{
+  width:100%;
+  height:44px;
+  font-size:14px;
+}
+
+/* ===== 百叶窗手风琴（移动端预测卡片） ===== */
+.pred-accordion{
+  position:relative;
+  cursor:pointer;
+  margin-bottom:16px;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+/* 堆叠在主卡片后面的隐藏卡片（百叶窗暗示） */
+.pred-accordion__stack{
+  position:relative;
+  height:12px;
+  margin-bottom:-4px;
+  transition:height 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+}
+.pred-accordion__hidden-card{
+  position:absolute;
+  left:0;right:0;
+  height:8px;
+  border-radius:8px 8px 0 0;
+  border:1px solid var(--border-light);
+  border-bottom:none;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+.pred-accordion__hidden-card--1{
+  top:0;
+  background:rgba(247,249,252,0.6);
+  transform:scaleX(0.92);
+}
+.pred-accordion__hidden-card--2{
+  top:4px;
+  background:rgba(247,249,252,0.8);
+  transform:scaleX(0.96);
+}
+.pred-accordion__hidden-card .pred-label{
+  font-size:8px;
+  opacity:0.5;
+}
+
+/* 主卡片（ETD，始终可见） */
+.pred-accordion__main{
+  position:relative;
+  z-index:2;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 14px;
+  gap:8px;
+  transition:opacity 0.2s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.pred-accordion__chevron{
+  transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);
+  flex-shrink:0;
+}
+
+/* 展开后的完整列表 */
+.pred-accordion__expanded{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(-8px);
+  transition:max-height 0.32s cubic-bezier(0.4,0,0.2,1),
+             opacity 0.24s cubic-bezier(0,0,0.2,1) 0.06s,
+             transform 0.28s cubic-bezier(0.4,0,0.2,1);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.pred-accordion__expanded .pred-card{
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 14px;
+  gap:8px;
+}
+
+/* 展开状态 */
+.pred-accordion--open .pred-accordion__stack{
+  height:0;
+  opacity:0;
+  margin-bottom:0;
+}
+.pred-accordion--open .pred-accordion__main{
+  opacity:0;
+  transform:translateY(-4px);
+  position:absolute;
+  pointer-events:none;
+  max-height:0;
+  overflow:hidden;
+}
+.pred-accordion--open .pred-accordion__expanded{
+  max-height:200px;
+  opacity:1;
+  transform:translateY(0);
+}
+.pred-accordion--open .pred-accordion__chevron{
+  transform:rotate(180deg);
+}

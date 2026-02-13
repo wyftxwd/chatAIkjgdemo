@@ -1,7 +1,12 @@
 import { useState } from 'react'
 
-export default function PredictionBlock() {
+interface PredictionBlockProps {
+  mobile?: boolean
+}
+
+export default function PredictionBlock({ mobile = false }: PredictionBlockProps) {
   const [subscribed, setSubscribed] = useState(false)
+  const [cardsExpanded, setCardsExpanded] = useState(false)
 
   return (
     <div className="prediction-block">
@@ -17,23 +22,68 @@ export default function PredictionBlock() {
       </div>
 
       {/* 预测卡片组 */}
-      <div className="prediction-cards">
-        <div className="pred-card">
-          <span className="pred-label">预测 ETA</span>
-          <span className="pred-date">2026-05-20</span>
-          <span className="pred-time">16:30</span>
+      {mobile ? (
+        <div
+          className={`pred-accordion ${cardsExpanded ? 'pred-accordion--open' : ''}`}
+          onClick={() => setCardsExpanded(p => !p)}
+          role="button"
+          tabIndex={0}
+          aria-expanded={cardsExpanded}
+          aria-label={cardsExpanded ? '收起预测详情' : '展开预测详情'}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setCardsExpanded(p => !p) }}
+        >
+          {/* 百叶窗堆叠：ETA 和 ETB 藏在后面 */}
+          <div className="pred-accordion__stack">
+            <div className="pred-accordion__hidden-card pred-accordion__hidden-card--1"></div>
+            <div className="pred-accordion__hidden-card pred-accordion__hidden-card--2"></div>
+          </div>
+          {/* 主卡片：ETD 始终可见 */}
+          <div className="pred-card accent pred-accordion__main">
+            <span className="pred-label">预测 ETD</span>
+            <span className="pred-date">2026-05-22</span>
+            <span className="pred-time">10:00</span>
+            <svg className="pred-accordion__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
+          {/* 展开后的完整列表 */}
+          <div className="pred-accordion__expanded">
+            <div className="pred-card">
+              <span className="pred-label">预测 ETA</span>
+              <span className="pred-date">2026-05-20</span>
+              <span className="pred-time">16:30</span>
+            </div>
+            <div className="pred-card">
+              <span className="pred-label">预测 ETB</span>
+              <span className="pred-date">2026-05-20</span>
+              <span className="pred-time">18:45</span>
+            </div>
+            <div className="pred-card accent">
+              <span className="pred-label">预测 ETD</span>
+              <span className="pred-date">2026-05-22</span>
+              <span className="pred-time">10:00</span>
+            </div>
+          </div>
         </div>
-        <div className="pred-card">
-          <span className="pred-label">预测 ETB</span>
-          <span className="pred-date">2026-05-20</span>
-          <span className="pred-time">18:45</span>
+      ) : (
+        <div className="prediction-cards">
+          <div className="pred-card">
+            <span className="pred-label">预测 ETA</span>
+            <span className="pred-date">2026-05-20</span>
+            <span className="pred-time">16:30</span>
+          </div>
+          <div className="pred-card">
+            <span className="pred-label">预测 ETB</span>
+            <span className="pred-date">2026-05-20</span>
+            <span className="pred-time">18:45</span>
+          </div>
+          <div className="pred-card accent">
+            <span className="pred-label">预测 ETD</span>
+            <span className="pred-date">2026-05-22</span>
+            <span className="pred-time">10:00</span>
+          </div>
         </div>
-        <div className="pred-card accent">
-          <span className="pred-label">预测 ETD</span>
-          <span className="pred-date">2026-05-22</span>
-          <span className="pred-time">10:00</span>
-        </div>
-      </div>
+      )}
 
       {/* 开港/截港 */}
       <div className="prediction-footer">
