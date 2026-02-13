@@ -1,7 +1,0 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": "ship-card-react/dist",
-  "installCommand": "npm install",
-  "framework": "vite",
-  "rootDirectory": "ship-card-react"
-}
