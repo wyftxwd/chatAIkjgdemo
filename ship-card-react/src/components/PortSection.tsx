@@ -3,11 +3,9 @@ export default function PortSection() {
     <div className="port-section">
       <div className="port-header">
         <div className="port-header-left">
-          <span className="port-header-prefix">港口情报</span>
-          <span className="port-header-divider"></span>
-          <span className="port-header-name">上海</span>
-          <span className="port-header-en">SHANGHAI</span>
           <span className="port-code mono">CNSHA</span>
+          <span className="port-header-divider"></span>
+          <span className="port-header-en">SHANGHAI</span>
         </div>
         <span className="badge-live">LIVE</span>
       </div>
